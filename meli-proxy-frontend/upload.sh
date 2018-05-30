@@ -1,0 +1,14 @@
+#!/bin/bash
+REMOTE_IP="200.80.28.114"
+REMOTE_PORT="5000"
+REMOTE_USER="ticpro"
+REMOTE_LOCATION=""
+FOLDER_NAME="dist"
+PACKAGE_NAME="dist-proxy-frontend"
+if [ -f $PACKAGE_NAME.tgz ]; then
+    rm $PACKAGE_NAME.tgz
+fi
+
+tar -cvzf $PACKAGE_NAME.tgz $FOLDER_NAME
+
+scp -P$REMOTE_PORT $PACKAGE_NAME.tgz $REMOTE_USER@$REMOTE_IP:$REMOTE_LOCATION

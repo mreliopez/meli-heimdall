@@ -1,0 +1,92 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="container">
+  <div class="row">
+    <small><i class="fa fa-info-circle"></i>  Los listados se actualizan cada 10 segundos</small>
+  </div>
+  <br/>
+  <div class="alert alert-danger" *ngIf="errorHandledReq">
+    Hubo un problema al conectarse con el servidor
+  </div>
+  <div class="row" *ngIf="!errorHandledReq">
+    <h1>Últimas Conexiones</h1> <i class="fa fa-refresh" *ngIf="updatingReq"></i>
+  </div>
+
+  <div class="row" *ngIf="!errorHandledReq">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>IP</th>
+          <th>Fecha / Hora</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="lastRequestList?.length == 0">
+        <td colspan="2" align="center">
+          No hubo conexiones en los últimos 5 minutos
+        </td>
+      </tbody>
+      <tbody *ngIf="lastRequestList?.length > 0">
+        <tr *ngFor="let lastRequest of lastRequestList">
+          <td>{{ lastRequest.remoteAdress }}</td>
+          <td>{{ lastRequest.lastConnection }} </td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+  <div class="alert alert-danger" *ngIf="errorHandledStat">
+    Hubo un problema al conectarse con el servidor
+  </div>
+  <div class="row" *ngIf="!errorHandledStat">
+    <h1>Estadísticas</h1><i class="fa fa-refresh" *ngIf="updatingStats"></i>
+  </div>
+
+  <table class="table table-hover" *ngIf="!errorHandledStat">
+    <thead>
+      <tr>
+        <th>IP</th>
+        <th>Conexiones (Q)</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="statisticsList?.length == 0">
+        <td colspan="2" align="center">
+          No se obtuvieron estadísticas
+        </td>
+    </tbody>
+    <tbody *ngIf="statisticsList?.length > 0">
+      <tr *ngFor="let statistics of statisticsList">
+        <td>{{ statistics.remoteAddress }}</td>
+        <td>{{ statistics.connectionCount }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="alert alert-danger" *ngIf="errorHandledMethod">
+    Hubo un problema al conectarse con el servidor
+  </div>
+  <div class="row" *ngIf="!errorHandledMethod">
+    <h1>Estadísticas Métodos</h1><i class="fa fa-refresh" *ngIf="updatingStats"></i>
+  </div>
+
+  <table class="table table-hover" *ngIf="!errorHandledMethod">
+    <thead>
+      <tr>
+        <th>Url</th>
+        <th>Método</th>
+        <th>Cantidad (Q)</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="methodsList?.length == 0">
+        <td colspan="2" align="center">
+          No se obtuvieron estadísticas
+        </td>
+    </tbody>
+    <tbody *ngIf="methodsList?.length > 0">
+      <tr *ngFor="let methods of methodsList">
+        <td>{{ methods.url }}</td>
+        <td>{{ methods.method }}</td>
+        <td>{{ methods.meter }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
